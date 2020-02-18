@@ -1,7 +1,7 @@
 use glutin_window::GlutinWindow as Window;
 use opengl_graphics::{GlGraphics, OpenGL};
 use piston::event_loop::{EventSettings, Events};
-use piston::input::{RenderEvent, UpdateEvent};
+use piston::input::*;
 use piston::window::WindowSettings;
 
 mod states;
@@ -33,7 +33,10 @@ fn main() {
 
     if let Some(args) = e.update_args() {
       cur_state.update(&args);
-      cur_state.set_state(Box::new(Game::new(GlGraphics::new(opengl))))
     }
+
+    if let Some(Button::Keyboard(_key)) = e.press_args() {
+      cur_state.set_state(Box::new(Game::new(GlGraphics::new(opengl))))
+    };
   }
 }
